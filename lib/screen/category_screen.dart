@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_budget_ui/helpers/color_helper.dart';
 import 'package:flutter_budget_ui/models/category_model.dart';
+import 'package:flutter_budget_ui/widgets/radial_painter.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key, required this.category});
@@ -57,10 +59,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         offset: Offset(0, 2),
                         blurRadius: 6.0)
                   ]),
-              child: Center(
-                child: Text(
-                  '\$${amountLeft.toStringAsFixed(2)} / \$${widget.category.maxAmount.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              child: CustomPaint(
+                foregroundPainter: RadialPainter(
+                    bgColor: Colors.grey[200] ?? Colors.grey,
+                    lineColor: getColor(context, percent),
+                    percent: percent,
+                    width: 15.0),
+                child: Center(
+                  child: Text(
+                    '\$${amountLeft.toStringAsFixed(2)} / \$${widget.category.maxAmount.toStringAsFixed(2)}',
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             )
